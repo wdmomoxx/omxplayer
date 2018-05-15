@@ -867,10 +867,10 @@ int main(int argc, char *argv[])
         m_tv_show_info = !m_tv_show_info;
         vc_tv_show_info(m_tv_show_info);
         break;
-      case '1':
+      case 's':
         SetSpeed(m_av_clock->OMXPlaySpeed() - 1);
         break;
-      case '2':
+      case 'm':
         SetSpeed(m_av_clock->OMXPlaySpeed() + 1);
         break;
       case 'j':
@@ -907,7 +907,7 @@ int main(int argc, char *argv[])
           m_incr = 600.0;
         }
         break;
-      case 'n':
+      case '1':
         if(m_has_subtitle)
         {
           if(!m_player_subtitles.GetUseExternalSubtitles())
@@ -928,7 +928,7 @@ int main(int argc, char *argv[])
           PrintSubtitleInfo();
         }
         break;
-      case 'm':
+      case '2':
         if(m_has_subtitle)
         {
           if(m_player_subtitles.GetUseExternalSubtitles())
@@ -950,7 +950,7 @@ int main(int argc, char *argv[])
           PrintSubtitleInfo();
         }
         break;
-      case 's':
+      case 'x':
         if(m_has_subtitle)
         {
           m_player_subtitles.SetVisible(!m_player_subtitles.GetVisible());
@@ -981,14 +981,14 @@ int main(int argc, char *argv[])
       case 0x5b43: // key right
         if(m_omx_reader.CanSeek()) m_incr = 30.0;
         break;
-      case 0x5b41: // key up
+      case '+': case '=':
         if(m_omx_reader.CanSeek()) m_incr = 600.0;
         break;
-      case 0x5b42: // key down
+      case '-':
         if(m_omx_reader.CanSeek()) m_incr = -600.0;
         break;
       case ' ':
-      case 'p':
+      case 'r':
         m_Pause = !m_Pause;
         if(m_Pause)
         {
@@ -1005,11 +1005,11 @@ int main(int argc, char *argv[])
           m_av_clock->OMXResume();
         }
         break;
-      case '-':
+      case 0x5b42: // key down
         m_player_audio.SetCurrentVolume(m_player_audio.GetCurrentVolume() - 300);
         printf("Current Volume: %.2fdB\n", m_player_audio.GetCurrentVolume() / 100.0f);
         break;
-      case '+': case '=':
+      case 0x5b41: // key up
         m_player_audio.SetCurrentVolume(m_player_audio.GetCurrentVolume() + 300);
         printf("Current Volume: %.2fdB\n", m_player_audio.GetCurrentVolume() / 100.0f);
         break;
